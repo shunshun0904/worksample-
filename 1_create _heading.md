@@ -7,7 +7,7 @@
 ### webアプリとrailsの関係性  
 ### rubyとrailsの関係性  
 
-## MVCと設計哲学  
+## railsにおけるMVCと設計哲学  
 ### MVCとは？  
 ### railsのMVC  
 ### プログラミングにおける設計哲学とは？  
