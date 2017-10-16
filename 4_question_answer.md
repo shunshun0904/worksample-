@@ -17,10 +17,10 @@ rake routes"を行ってみても、Prefixに"blog"　”new_blog"もあれば�
 ***モデル***  　　
 <table>
     <tr>
-        <td>***単一語***</td>
+        <td><単一語></td>
         <td></td>
         <td></td>
-        <td>***複数語***</td>
+        <td><複数語></td>
         <td></td>
         <td></td>
     </tr>
@@ -46,7 +46,7 @@ rake routes"を行ってみても、Prefixに"blog"　”new_blog"もあれば�
         <td>先頭大文字・単数形</td>
         <td>モデルクラス名</td>
         <td>UserList</td>
-        <td>先頭大文字・単数形・キャメルケース</td>
+        <td>先頭大文字・単数形・キャメル</td>
     </tr>
     <tr>
         <td>ファイル名</td>
@@ -54,7 +54,7 @@ rake routes"を行ってみても、Prefixに"blog"　”new_blog"もあれば�
         <td>先頭小文字・単数形</td>
         <td>ファイル名</td>
         <td>user_list.rb</td>
-        <td>先頭小文字・単数形・スネークケース</td>
+        <td>先頭小文字・単数形・スネーク</td>
     </tr>
     <tr>
         <td>テーブル名</td>
@@ -62,17 +62,17 @@ rake routes"を行ってみても、Prefixに"blog"　”new_blog"もあれば�
         <td>先頭小文字・複数形</td>
         <td>テーブル名</td>
         <td>users_lists</td>
-        <td>先頭小文字・複数形・スネークケース</td>
+        <td>先頭小文字・複数形・スネーク</td>
     </tr>
 </table>
 
 ***コントローラー***  　　
 <table>
     <tr>
-        <td>***単一語***</td>
+        <td><単一語></td>
         <td></td>      
         <td></td>        
-        <td>***複数語***</td>
+        <td><複数語></td>
         <td></td>
         <td></td>      
     </tr>
@@ -85,18 +85,18 @@ rake routes"を行ってみても、Prefixに"blog"　”new_blog"もあれば�
         <td>使用法</td>
     </tr>
     <tr>
-        <td>コントローラ名</td>
+        <td>コントローラー名</td>
         <td>items</td>
         <td>先頭小文字</td>      
-        <td>コントローラ名</td>
+        <td>コントローラー名</td>
         <td>member_post</td>
         <td>先頭小文字・スネーク</td>      
     </tr>
     <tr>
-        <td>コントローラクラス名</td>
+        <td>コントローラークラス名</td>
         <td>ItemsController</td>
         <td>先頭大文字・キャメル</td>      
-        <td>コントローラクラス名</td>
+        <td>コントローラークラス名</td>
         <td>MemberPostController</td>
         <td>先頭大文字・キャメル</td>      
     </tr>
@@ -114,5 +114,19 @@ rake routes"を行ってみても、Prefixに"blog"　”new_blog"もあれば�
 rails generateコマンドは、キャメルケースでもスネークケースでもどちらでも良いです。
 *キャメルケースとは要素語の頭文字を大文字で表現する方法です。
 *スネークケースとはアンダースコア（_）を区切記号として単語をつなげる表現方法です。
+```
+
+
+
+
+
+
+##### エキスパートAIコース
 
 ```
+最小二乗法について、テキストを読んでも以下二点がよく分かりませんでしたので、ご回答をお願い致します。
+・なぜ2乗しているのか
+・なぜ最後に,2で割っているのか
+```
+
+## 解答例  
