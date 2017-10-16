@@ -15,13 +15,12 @@ rake routes"を行ってみても、Prefixに"blog"　”new_blog"もあれば�
 以下に、railsの「命名規則」についてまとめるので覚えておいてください。これは「こういう決まり」として使っているうちに覚えていくしかないです。
 ```
 ***モデル***  　　
-単一語の場合  　　　　
 <table>
     <tr>
-        <td>単一語</td>
+        <td>***単一語***</td>
         <td></td>
         <td></td>
-        <td>複数語</td>
+        <td>***複数語***</td>
         <td></td>
         <td></td>
     </tr>
@@ -66,3 +65,54 @@ rake routes"を行ってみても、Prefixに"blog"　”new_blog"もあれば�
         <td>先頭小文字・複数形・スネークケース</td>
     </tr>
 </table>
+
+***コントローラー***  　　
+<table>
+    <tr>
+        <td>***単一語***</td>
+        <td></td>      
+        <td></td>        
+        <td>***複数語***</td>
+        <td></td>
+        <td></td>      
+    </tr>
+    <tr>
+        <td>名称</td>
+        <td>例</td>
+        <td>使用法</td>
+        <td>名称</td>
+        <td>例</td>
+        <td>使用法</td>
+    </tr>
+    <tr>
+        <td>コントローラ名</td>
+        <td>items</td>
+        <td>先頭小文字</td>      
+        <td>コントローラ名</td>
+        <td>member_post</td>
+        <td>先頭小文字・スネーク</td>      
+    </tr>
+    <tr>
+        <td>コントローラクラス名</td>
+        <td>ItemsController</td>
+        <td>先頭大文字・キャメル</td>      
+        <td>コントローラクラス名</td>
+        <td>MemberPostController</td>
+        <td>先頭大文字・キャメル</td>      
+    </tr>
+    <tr>
+        <td>ファイル名</td>
+        <td>items_controller.rb</td>
+        <td>先頭小文字・スネーク</td>      
+        <td>ファイル名</td>
+        <td>member_post_contoroller.rb</td>
+        <td>先頭小文字・スネーク</td>      
+    </tr>
+</table>
+
+```
+rails generateコマンドは、キャメルケースでもスネークケースでもどちらでも良いです。
+*キャメルケースとは要素語の頭文字を大文字で表現する方法です。
+*スネークケースとはアンダースコア（_）を区切記号として単語をつなげる表現方法です。
+
+```
