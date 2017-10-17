@@ -128,14 +128,16 @@ rails generateコマンドは、キャメルケースでもスネークケース
 ```
 
 ## 解答例  
-```math
+```
 最小２乗法とは「誤差2乗和」が最小となるように超平面（2次元の場合境界線）を決定する方法です。
 しかしこの説明だと根本的な解決になっていないので、もう少し数学的な説明を補足します。例えば「2乗していないただの誤差」を考えます。その場合数式で表現すると
-\begin{eqnarray}
-E = \sum_{i=1}^{N}y_{i}-f(x_{i})
-\end{eqnarray}
+<img src="https://latex.codecogs.com/gif.latex?E&space;=&space;\sum_{i=1}^{N}y_{i}-f(x_{i})&space;\nonumber" />
+
 となります。ここで\$E$は誤差関数、y = f(x)は求める境界線、(\x_{i},y_‘{i})は与えられたデータの組みです。なお今回は簡単なため、2変数一次関数を想定しています。  
-もちろん、上の誤差$y_{i}-f(x_{i})$は正負どちらも取り得ます。綺麗に全部の計算結果が>0になることはありません。下の図をみてください。(x_{1},y_{1}),(x_{2},y_{2})の二つのデータがあるとします。
+もちろん、上の誤差$y_{i}-f(x_{i})$は正負どちらも取り得ます。綺麗に全部の計算結果が>0になることはありません。下の図をみてください。  
+<img src="https://user-images.githubusercontent.com/25298659/31656144-c8030a5a-b365-11e7-9284-67d98b0ba5b1.png">
+
+(x_{1},y_{1}),(x_{2},y_{2})の二つのデータがあるとします。
 （二乗していない）誤差の定義に従い普通に計算すると、今の場合
 \begin{eqnarray}
 E = (15-8) + (3-10) = 0   
@@ -160,6 +162,21 @@ E = (15-8) + |(3-10)| = 14
 という二つの連立方程式をとけばいいわけです。  
 ・$\frac{1}{2}$をしている場合  
 \begin{eqnarray}
-\frac{\partial \sum_{i=1}^{N}\frac{1}{2}　y_{i}-f(x_{i})}{\partial a} =  \frac{\partial} \sum_{i=1}^{N}\frac{1}{2}y_{i}-f(x_{i})}{\partial b} = \sum_{i=1}^{N} (y_{i}-a-bx_{i})(-1) = 0 \\
+\frac{\partial \sum_{i=1}^{N}\frac{1}{2}　y_{i}-f(x_{i})}{\partial a} =  \frac{\partial} \sum_{i=1}^{N}\frac{1}{2}y_{i}-f(x_{i})}{\partial a} = \sum_{i=1}^{N} (y_{i}-a-bx_{i})(-1) = 0 \\
+\frac{\partial \sum_{i=1}^{N}\frac{1}{2}　y_{i}-f(x_{i})}{\partial b} =  \frac{\partial} \sum_{i=1}^{N}\frac{1}{2}y_{i}-f(x_{i})}{\partial b} = \sum_{i=1}^{N} (y_{i}-a-bx_{i})(-x_{i) = 0 \\
 \end{eqnarray}
+
+・$\frac{1}{2}$をしていない場合  
+\begin{eqnarray}
+\frac{\partial \sum_{i=1}^{N}　y_{i}-f(x_{i})}{\partial a} =  \frac{\partial} \sum_{i=1}^{N}2y_{i}-f(x_{i})}{\partial a} = \sum_{i=1}^{N} 2(y_{i}-a-bx_{i})(-1) $=$ 0 \\
+\leftrightarrow \sum_{i=1}^{N} (y_{i}-a-bx_{i})(-1) $=$ 0 \\
+
+\frac{\partial \sum_{i=1}^{N}}2y_{i}-f(x_{i})}{\partial b} =  \frac{\partial} \sum_{i=1}^{N}2y_{i}-f(x_{i})}{\partial b} = \sum_{i=1}^{N} (y_{i}-a-bx_{i})(-x_{i}) &=& 0 \\
+\leftrightarrow \sum_{i=1}^{N} (y_{i}-a-bx_{i})(-x_{i}) &=& 0
+\end{eqnarray}
+と結局は$\frac{1}{2}$をしようがしまいが,最終的に同じ式を計算することには変わりません。  
+これは$\frac{\partial E}{\partial a} や\frac{\partial E}{\partial b}$自体が大事なのではなく、$\frac{\partial E}{\partial a} = 0、\frac{\partial E}{\partial b}=0$という方程式がここでは大事だからです。  
+
+この微分（偏微分）したのちに係数をなくすために先にその係数を1にする（今の場合は2×1/2）という作業は、関数を最適化するラグランジュの未定乗数法を用いた分野では特によく用いられている計算簡略化のためのテクニックです。  
+SVM（サポートベクターマシン）やナイーブベイズや誤差逆伝搬学習法でもみみられる方法ですので、これも覚えておくとそれらを理解するときにスムーズに理解できます。
 ```
