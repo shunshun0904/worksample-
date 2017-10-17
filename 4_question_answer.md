@@ -128,55 +128,58 @@ rails generateコマンドは、キャメルケースでもスネークケース
 ```
 
 ## 解答例  
-```
+
 最小２乗法とは「誤差2乗和」が最小となるように超平面（2次元の場合境界線）を決定する方法です。
 しかしこの説明だと根本的な解決になっていないので、もう少し数学的な説明を補足します。例えば「2乗していないただの誤差」を考えます。その場合数式で表現すると
+
 <img src="https://latex.codecogs.com/gif.latex?E&space;=&space;\sum_{i=1}^{N}y_{i}-f(x_{i})&space;\nonumber" />
 
-となります。ここで\$E$は誤差関数、y = f(x)は求める境界線、(\x_{i},y_‘{i})は与えられたデータの組みです。なお今回は簡単なため、2変数一次関数を想定しています。  
-もちろん、上の誤差$y_{i}-f(x_{i})$は正負どちらも取り得ます。綺麗に全部の計算結果が>0になることはありません。下の図をみてください。  
-<img src="https://user-images.githubusercontent.com/25298659/31656144-c8030a5a-b365-11e7-9284-67d98b0ba5b1.png">
+となります。ここでEは誤差関数、y = f(x)は求める境界線、<img src="https://latex.codecogs.com/gif.latex?(x_{i},y_{i})" />は与えられたデータの組みです。なお今回は簡単なため、2変数一次関数を想定しています。  
+もちろん、上の誤差<img src="https://latex.codecogs.com/gif.latex?y_{i}-f(x_{i})" />は正負どちらも取り得ます。綺麗に全部の計算結果が>0になることはありません。下の図をみてください。  
+<img src="https://user-images.githubusercontent.com/25298659/31658669-a54ae1f2-b36c-11e7-8f93-07e4ec3ae8e3.png">
 
-(x_{1},y_{1}),(x_{2},y_{2})の二つのデータがあるとします。
+<img src="https://latex.codecogs.com/gif.latex?(x_{1},y_{1}),(x_{2},y_{2})">の二つのデータがあるとします。
 （二乗していない）誤差の定義に従い普通に計算すると、今の場合
-\begin{eqnarray}
-E = (15-8) + (3-10) = 0   
-\end{eqnarray}
-となります。この場合は誤差が0という計算結果になるわけです。果たしてこれでいいのでしょうか？このまま計算すると、誤差が0なのでこれが最適な境界線になってしまいます。こんなにデータ点が離れているのにも関わらずです。
-上記の「2乗していない誤差」の場合正負による大小を加味していません。そのため誤差=0という結果になってしまったわけです。もし絶対値記号でもつけて計算しなおせば
-\begin{eqnarray}
-E = (15-8) + |(3-10)| = 14   
-\end{eqnarray}
-となり誤差が存在するので、ここで終了せずにまだまだこの誤差を小さくしようとして計算が進みます。ということでプログラム内で絶対値つければ問題は解決します。けれど、わざわざif文で場合わけしてコードを長くしなくても済む方法があります。そもそも「場合わけ」という作業自体、混乱を招きやすい手法です。（中学時代の関数の場合わけを思い出してみてください。）  
-それを解決するために、ここでは「ただの誤差」を「2乗」して全ての結果が>0になるようにしているわけです。そうすれば、場合わけしなくても勝手に全ての計算結果が  >0になるので楽です。これが2乗している理由です。ついでに「この2乗することで正負による混乱をなくす」手法は数学の色々なところで用いられている、計算を簡略化するためのテクニックなので、覚えておいてください。  
 
-次に$\frac{1}{2}$をしている理由です。二つの場合を考えていきましょう。  
-・$\frac{1}{2}$をしている場合  
-・$\frac{1}{2}$をしていない場合  
-上述してきた2変数の一次関数の場合でみていきます。$\E$の最小値を求めるので、「これを偏微分したものが0になる」という方程式を考えればいいということはすでに勉強したと思います。  
-求める直線（境界線）が$y=ax+b$の時は
-\begin{eqnarray}
-\frac{\partial E}{\partial a} = 0 \\
-\frac{\partial E}{\partial b} = 0 \\
-\end{eqnarray}
-という二つの連立方程式をとけばいいわけです。  
-・$\frac{1}{2}$をしている場合  
-\begin{eqnarray}
-\frac{\partial \sum_{i=1}^{N}\frac{1}{2}　y_{i}-f(x_{i})}{\partial a} =  \frac{\partial} \sum_{i=1}^{N}\frac{1}{2}y_{i}-f(x_{i})}{\partial a} = \sum_{i=1}^{N} (y_{i}-a-bx_{i})(-1) = 0 \\
-\frac{\partial \sum_{i=1}^{N}\frac{1}{2}　y_{i}-f(x_{i})}{\partial b} =  \frac{\partial} \sum_{i=1}^{N}\frac{1}{2}y_{i}-f(x_{i})}{\partial b} = \sum_{i=1}^{N} (y_{i}-a-bx_{i})(-x_{i) = 0 \\
-\end{eqnarray}
+<img src="https://latex.codecogs.com/gif.latex?E&space;=&space;(15-8)&space;&plus;&space;(3-10)&space;=&space;0">    
 
-・$\frac{1}{2}$をしていない場合  
-\begin{eqnarray}
-\frac{\partial \sum_{i=1}^{N}　y_{i}-f(x_{i})}{\partial a} =  \frac{\partial} \sum_{i=1}^{N}2y_{i}-f(x_{i})}{\partial a} = \sum_{i=1}^{N} 2(y_{i}-a-bx_{i})(-1) $=$ 0 \\
-\leftrightarrow \sum_{i=1}^{N} (y_{i}-a-bx_{i})(-1) $=$ 0 \\
+となります。この場合は誤差が0という計算結果になるわけです。果たしてこれでいいのでしょうか？  
+このまま計算すると、誤差が0なのでこれが最適な境界線になってしまいます。こんなにデータ点が離れているのにも関わらずです。
+これは上記の「2乗していない誤差」の場合正負による大小を加味していないために起こります。そのため誤差=0という結果になってしまったわけです。もし絶対値記号でもつけて計算しなおせば
 
-\frac{\partial \sum_{i=1}^{N}}2y_{i}-f(x_{i})}{\partial b} =  \frac{\partial} \sum_{i=1}^{N}2y_{i}-f(x_{i})}{\partial b} = \sum_{i=1}^{N} (y_{i}-a-bx_{i})(-x_{i}) &=& 0 \\
-\leftrightarrow \sum_{i=1}^{N} (y_{i}-a-bx_{i})(-x_{i}) &=& 0
-\end{eqnarray}
-と結局は$\frac{1}{2}$をしようがしまいが,最終的に同じ式を計算することには変わりません。  
-これは$\frac{\partial E}{\partial a} や\frac{\partial E}{\partial b}$自体が大事なのではなく、$\frac{\partial E}{\partial a} = 0、\frac{\partial E}{\partial b}=0$という方程式がここでは大事だからです。  
+<img src="https://latex.codecogs.com/gif.latex?E&space;=&space;(15-8)&space;&plus;&space;|(3-10)|&space;=&space;14">   
+　　
 
-この微分（偏微分）したのちに係数をなくすために先にその係数を1にする（今の場合は2×1/2）という作業は、関数を最適化するラグランジュの未定乗数法を用いた分野では特によく用いられている計算簡略化のためのテクニックです。  
-SVM（サポートベクターマシン）やナイーブベイズや誤差逆伝搬学習法でもみみられる方法ですので、これも覚えておくとそれらを理解するときにスムーズに理解できます。
+となり誤差が存在するので、ここで終了せずにまだまだこの誤差を小さくしようとして計算が進みます。ということでプログラム内で絶対値つければ問題は解決します。
+
+けれど、これをプログラムで実装するときにわざわざif文で場合分けしてコードを長くしなくても済む方法があります。そもそも「場合分け」という作業自体、混乱を招きやすい手法です。（中学時代の関数の場合分けを思い出してみてください。）  
+それを解決するために、ここでは「ただの誤差」を「2乗」して全ての結果が>0になるようにしているわけです。そうすれば、場合分けしなくても勝手に全ての計算結果が >0になるので楽です。これが2乗している理由です。ついでに「この2乗することで正負による混乱をなくす」手法は数学の色々なところで用いられている、計算を簡略化するためのテクニックなので、覚えておいてください。  
+
+次に<img src="https://latex.codecogs.com/gif.latex?\frac{1}{2}"> をしている理由です。二つの場合を考えていきましょう。  
+・1/2をしている場合  
+・1/2をしていない場合  
+上述してきた2変数の1次関数の場合でみていきます。Eの最小値を求めるので、「これを偏微分したものが0になる」という方程式を考えればいいということはすでに勉強したと思います。  
+求める直線（境界線）が<img src="https://latex.codecogs.com/gif.latex?y=ax&plus;b">の時は
+
+<img src="https://latex.codecogs.com/gif.latex?\frac{\partial&space;E}{\partial&space;a}&space;=&space;0,&space;\frac{\partial&space;E}{\partial&space;b}&space;=&space;0">
+
+
+という二つの連立方程式をとけばいいわけです。
+
+・1/2をしている場合  
+
+<img src="
+https://latex.codecogs.com/gif.latex?\frac{\partial&space;\sum_{i=1}^{N}\frac{1}{2}&space;y_{i}-f(x_{i})}{\partial&space;a}&space;=&space;\frac{\partial&space;\sum_{i=1}^{N}\frac{1}{2}y_{i}-f(x_{i})}{\partial&space;a}&space;=&space;\sum_{i=1}^{N}&space;(y_{i}-a-bx_{i})(-1)&space;=&space;0&space;\\&space;\frac{\partial&space;\sum_{i=1}^{N}\frac{1}{2}&space;y_{i}-f(x_{i})}{\partial&space;b}&space;=&space;\frac{\partial&space;\sum_{i=1}^{N}\frac{1}{2}y_{i}-f(x_{i})}{\partial&space;b}&space;=&space;\sum_{i=1}^{N}&space;(y_{i}-a-bx_{i})(-x_{i})&space;=&space;0">
+
+
+
+・1/2をしていない場合  
+<img src="
+https://latex.codecogs.com/gif.latex?\frac{\partial&space;\sum_{i=1}^{N}&space;y_{i}-f(x_{i})}{\partial&space;a}&space;=&space;\frac{\partial&space;\sum_{i=1}^{N}2&space;(y_{i}-f(x_{i}))}{\partial&space;a}\\&space;=&space;\sum_{i=1}^{N}&space;2(y_{i}-a-bx_{i})(-1)&space;=&space;0&space;\\&space;\leftrightarrow&space;\sum_{i=1}^{N}&space;(y_{i}-a-bx_{i})(-1)&space;=&space;0&space;\\&space;\\&space;\frac{\partial&space;\sum_{i=1}^{N}2(y_{i}-f(x_{i}))}{\partial&space;b}&space;=&space;\frac{\partial&space;\sum_{i=1}^{N}2(y_{i}-f(x_{i}))}{\partial&space;b}&space;\\=&space;\sum_{i=1}^{N}2&space;(y_{i}-a-bx_{i})(-x_{i})&space;=&space;0&space;\\&space;\leftrightarrow&space;\sum_{i=1}^{N}&space;(y_{i}-a-bx_{i})(-x_{i})&space;=&space;0">
+
+と結局は1/2をしようがしまいが,最終的に同じ式を計算することには変わりません。  
+これは<img src="https://latex.codecogs.com/gif.latex?\frac{\partial&space;E}{\partial&space;a}">や<img src="https://latex.codecogs.com/gif.latex?\frac{\partial&space;E}{\partial&space;b}">自体が大事なのではなく、<img src="https://latex.codecogs.com/gif.latex?\frac{\partial&space;E}{\partial&space;a}&space;=&space;0, &space;\frac{\partial&space;E}{\partial&space;b}=0">という方程式がここでは大事だからです。 これが最初の質問でもある「計算簡略化のために2乗する」ということにも繋がっています。重要なのはE自体の式ではなく、Eを最小化するaとbを求めることです。
+
+この微分（偏微分）した後の係数をなくすために先にその係数を1にする（今の場合は2×1/2）という作業は、関数を最適化するラグランジュの未定乗数法を用いた分野では特によく用いられている計算簡略化のためのテクニックです。  
+SVM（サポートベクターマシン）やナイーブベイズや誤差逆伝搬学習法でもみられる方法ですので、これも覚えておくとそれらを理解するときにスムーズにいけると思います。
 ```
